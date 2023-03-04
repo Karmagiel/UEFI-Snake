@@ -1,0 +1,9 @@
+**/.vscode
+**/archive
+
+# Build
+**/build
+*.d
+*.o
+*.efi
+*.so
