@@ -18,3 +18,13 @@ Put this onto your /EFI Partition and start with uefi shell / add to grub / ...<
 Or use QEMU - Example for x86_64:<br/>
 `qemu-system-x86_64 -m 1G -net none -bios path/to/uefi/firmware.fd -kernel build/snake.efi`
 
+# Make it available as boot-option in Grub
+Add something like this to `/etc/grub.d/40_custom`  and do a `update-grub`.
+```
+menuentry 'Snake'  $menuentry_id_option 'play Snake' {
+	insmod part_gpt
+	insmod fat
+	search --no-floppy --fs-uuid --set=root <uuid of the .efi location, e.g. your EFI partition>
+	chainloader /EFI/snake.efi
+}
+```
